@@ -19,7 +19,7 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install -y git curl wget tar gzip clang make pkg-config \
-            build-essential python bc file unzip git ca-certificates \
+            build-essential python3 bc file unzip git ca-certificates \
             ruby flex bison binutils binutils-dev
 
       - name: Build PHP package
