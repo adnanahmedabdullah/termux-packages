@@ -1,6 +1,9 @@
 name: Build Old PHP Package
 
 on:
+  push:
+    branches:
+    - php-8.4.1
   workflow_dispatch:
 
 jobs:
