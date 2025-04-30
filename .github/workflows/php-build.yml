@@ -1,0 +1,30 @@
+name: Build Old PHP Package
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build-php:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout this commit
+        uses: actions/checkout@v4
+        with:
+          ref: 080c56545758836cdb25372818690ef1ccc8a97f
+
+      - name: Setup environment
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y git curl wget tar gzip clang make pkg-config \
+            build-essential python2.7 bc file unzip git ca-certificates \
+            ruby flex bison binutils binutils-dev
+
+      - name: Build PHP package
+        run: |
+          ./build-package.sh -a x86_64 php
+
+      - name: Upload .deb file
+        uses: actions/upload-artifact@v4
+        with:
+          name: php-deb
+          path: output/*.deb
