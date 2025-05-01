@@ -19,7 +19,7 @@ jobs:
     runs-on: ubuntu-24.04
     strategy:
       matrix:
-        target_arch: [aarch64, arm, i686, x86_64]
+        target_arch: [aarch64]
       fail-fast: false
     steps:
     - name: Clone repository
@@ -208,9 +208,9 @@ jobs:
         done
 
         if [ ${{ steps.build-info.outputs.docker-build }} == 'false' ]; then
-          NDK=$ANDROID_NDK ANDROID_HOME=$ANDROID_SDK_ROOT ./build-package.sh -a ${{ matrix.target_arch }} $packages
+          NDK=$ANDROID_NDK ANDROID_HOME=$ANDROID_SDK_ROOT ./build-package.sh -s -a ${{ matrix.target_arch }} $packages
         elif [ -n "$packages" ]; then
-          ./scripts/run-docker.sh ./build-package.sh -a ${{ matrix.target_arch }} $packages
+          ./scripts/run-docker.sh ./build-package.sh -s -a ${{ matrix.target_arch }} $packages
         fi
 
     - name: Generate build artifacts
